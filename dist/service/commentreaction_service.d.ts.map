@@ -1,0 +1,1 @@
+{"version":3,"file":"commentreaction_service.d.ts","sourceRoot":"","sources":["../../src/service/commentreaction_service.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,6BAA6B,EAAE,kCAAkC,EAAmC,MAAM,uCAAuC,CAAC;AAG3J,qBAAa,sBAAsB;WAClB,cAAc,CAAC,IAAI,EAAE,kCAAkC,GAAG,OAAO,CAAC,6BAA6B,CAAC;WAOhG,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,6BAA6B,CAAC;CASpF"}

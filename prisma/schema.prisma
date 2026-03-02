@@ -1,0 +1,163 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  uuid String @id @default(uuid())
+  username String @unique
+  password String
+  is_active Boolean @default(true)
+
+  rolesBridgeObj UserRolesBridge[]
+
+  @@map("user")
+}
+
+model Roles {
+  description String @id @unique
+
+  userBridge UserRolesBridge[]
+  @@map("roles")
+}
+
+model UserRolesBridge {
+  username String
+  roles String
+
+  userObj User @relation(fields: [username], references: [username])
+  rolesObj Roles @relation(fields: [roles], references: [description])
+
+  @@id([username, roles])
+  @@unique([username, roles])
+
+  @@map("user_roles_bridge")
+}
+
+model Permission {
+  description String @id
+
+  @@map("permission")
+}
+
+model RolesPermissionsBridge {
+  roles String 
+  permission String
+
+  @@id([roles, permission])
+  @@unique([roles, permission])
+  @@map("roles_permission_bridge")
+}
+
+model Content {
+  uuid String @id @default(uuid())
+  title String
+  body String
+  last_updated DateTime @default(now()) @updatedAt
+  created_at DateTime @default(now())
+  created_by String
+  typeBridgeObj ContentTypeBridge[]
+  reactionBridgeObj ContentReactionBridge[]
+  commentObj Comment[]
+
+  @@map("content")
+}
+
+model ContentType {
+  uuid String @id @default(uuid())
+  description String @unique
+  contentBridgeObj ContentTypeBridge[]
+
+  @@map("content_type")
+}
+
+model ContentTypeBridge {
+  content String 
+  type String
+  contentObj Content @relation(fields: [content], references: [uuid])
+  typeObj ContentType @relation(fields: [type], references: [uuid])
+
+  @@id([content, type])
+  @@unique([content, type])
+  @@map("content_type_bridge")
+}
+
+model ReactionType {
+  uuid String @id @default(uuid())
+  description String
+  label String?
+
+  commentBridge CommentReactionBridge[]
+  contentBridge ContentReactionBridge[]
+
+  @@map("reaction_type")
+}
+
+model ContentReactionBridge {
+  uuid String @id @default(uuid())
+  content String
+  reaction String
+  name String?
+  created_at DateTime @default(now())
+
+  contentObj Content @relation(fields: [content], references: [uuid])
+  reactionObj ReactionType @relation(fields: [reaction], references: [uuid])
+
+  @@map("content_reaction_bridge")
+}
+
+model Comment {
+  uuid String @id @default(uuid())
+  name String?
+  body String
+  content String
+  created_at DateTime @default(now())
+  reactionBridge CommentReactionBridge[]
+  contentObj Content @relation(fields: [content], references: [uuid])
+
+  @@map("comment")
+}
+
+model CommentReactionBridge {
+  uuid String @id @default(uuid())
+  comment String
+  reaction String
+  name String?
+  created_at DateTime @default(now())
+  commentObj Comment @relation(fields: [comment], references: [uuid])
+  reactionObj ReactionType @relation(fields: [reaction], references: [uuid])
+
+  @@map("comment_reaction_bridge")
+}
+
+model MessageType {
+  uuid String @id @default(uuid())
+  description String @unique
+
+  messageBridge Message[]
+
+  @@map("message_type")
+}
+
+model Message {
+  uuid String @id @default(uuid())
+  body String
+  type String
+  created_at DateTime @default(now())
+  
+  typeObj MessageType @relation(fields: [type], references: [uuid])
+
+  @@map("message") 
+}
+

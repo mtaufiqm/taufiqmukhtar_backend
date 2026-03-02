@@ -1,0 +1,1 @@
+{"version":3,"file":"MessageValidation.js","sourceRoot":"","sources":["../../src/validation/MessageValidation.ts"],"names":[],"mappings":";;;;;;AAAA,8CAAoB;AAEpB,MAAa,iBAAiB;IAC1B,MAAM,CAAC,MAAM,GAAc,aAAC,CAAC,MAAM,CAAC;QAChC,IAAI,EAAE,aAAC,CAAC,MAAM,EAAE,CAAC,QAAQ,EAAE;QAC3B,IAAI,EAAE,aAAC,CAAC,MAAM,EAAE,CAAC,QAAQ,EAAE;KAC9B,CAAC,CAAC;;AAJP,8CAKC"}
