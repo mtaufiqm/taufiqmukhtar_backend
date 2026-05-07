@@ -1,0 +1,11 @@
+services:
+  masseddi-backend:
+    build: .
+    image: mtaufiqm-backend:1.0
+    env_file: ".env"
+    ports:
+      - "8070:${SERVER_PORT}"
+    volumes:
+      - /opt/files:/opt/files
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import z from "zod";
-import { CreateMessageRequest, MessageResponse } from "../models/message_model";
+import { CreateMessageRequest, MessageDetailsResponse, MessageResponse } from "../models/message_model";
 import { MessageService } from "../service/message_service";
 import { Validation } from "../validation/validation";
 import { MessageValidation } from "../validation/MessageValidation";
@@ -11,6 +11,17 @@ export class MessageCotroller {
         try {
             let uuid: string = z.string().parse(req.params.uuid);
             let result: MessageResponse = await MessageService.getByUuid(uuid);
+            resp.status(200).json(result);
+            return;
+        } catch(err){
+            next(err);
+        }
+    }
+
+    static async getMessageDetailsByUuid(req: Request, resp: Response, next: NextFunction): Promise<void> {
+        try {
+            let uuid: string = z.string().parse(req.params.uuid);
+            let result: MessageDetailsResponse = await MessageService.getDetailsByUuid(uuid);
             resp.status(200).json(result);
             return;
         } catch(err){
@@ -34,6 +45,17 @@ export class MessageCotroller {
         try {
             let limit: number = z.coerce.number().default(100).parse(req.query.limit);
             let result: MessageResponse[] = await MessageService.readAll({limit: limit});
+            resp.status(200).json(result);
+            return;
+        } catch(err){
+            next(err);
+        }
+    }
+
+    static async readAllDetails(req: UserRequest, resp: Response, next: NextFunction): Promise<void> {
+        try {
+            let limit: number = z.coerce.number().default(100).parse(req.query.limit);
+            let result: MessageDetailsResponse[] = await MessageService.readAllDetails({limit: limit});
             resp.status(200).json(result);
             return;
         } catch(err){

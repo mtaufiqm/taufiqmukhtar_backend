@@ -6,5 +6,6 @@ export declare class ContentController {
     static deleteContent(req: UserRequest, resp: Response, next: NextFunction): Promise<void>;
     static getContentDetails(req: UserRequest, resp: Response, next: NextFunction): Promise<void>;
     static readAll(req: UserRequest, resp: Response, next: NextFunction): Promise<void>;
+    static readAllCommentDetailsByContent(req: UserRequest, resp: Response, next: NextFunction): Promise<void>;
 }
 //# sourceMappingURL=content_controller.d.ts.map

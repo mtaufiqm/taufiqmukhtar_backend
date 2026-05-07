@@ -27,7 +27,6 @@ model User {
 
 model Roles {
   description String @id @unique
-
   userBridge UserRolesBridge[]
   @@map("roles")
 }

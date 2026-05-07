@@ -1,4 +1,5 @@
-import { Message } from "../generated/prisma/client";
+import { Message, MessageType } from "../generated/prisma/client";
+import { MessageTypeResponse, toMessageTypeResponse } from "./messagetype_model";
 
 export type CreateMessageRequest = {
     body: string;
@@ -10,6 +11,8 @@ export type UpdateMessageRequest = {
     type?: string;
 };
 
+export type MessageDetailsResponse = Omit<Message, "type"> & {type: MessageTypeResponse};
+
 export type MessageResponse = {
     uuid: string;
     body: string;
@@ -19,4 +22,10 @@ export type MessageResponse = {
 
 export function toMessageResponse(data: Message): MessageResponse {
     return data as MessageResponse;
+}
+
+export function toMessageDetailsResponse(data: Message, type: MessageType): MessageDetailsResponse {
+    return {
+        ...data, type: toMessageTypeResponse(type)
+    };
 }

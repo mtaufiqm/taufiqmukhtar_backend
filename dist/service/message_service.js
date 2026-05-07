@@ -14,6 +14,19 @@ class MessageService {
         }
         return (0, message_model_1.toMessageResponse)(result);
     }
+    static async getDetailsByUuid(uuid) {
+        let result = await db_1.dbClient.message.findUnique({
+            where: { uuid: uuid },
+            include: {
+                typeObj: true
+            }
+        });
+        if (!result) {
+            throw new error_model_1.ResponseError(404, "Not Found");
+        }
+        let { typeObj, ...restData } = result;
+        return (0, message_model_1.toMessageDetailsResponse)(restData, typeObj);
+    }
     static async readAll(props) {
         let result = await db_1.dbClient.message.findMany({
             orderBy: {
@@ -23,6 +36,21 @@ class MessageService {
         });
         return result.map((el) => {
             return (0, message_model_1.toMessageResponse)(el);
+        });
+    }
+    static async readAllDetails(props) {
+        let result = await db_1.dbClient.message.findMany({
+            orderBy: {
+                created_at: "desc"
+            },
+            include: {
+                typeObj: true
+            },
+            ...(props ? { take: props.limit } : {}),
+        });
+        return result.map((el) => {
+            let { typeObj, ...restData } = el;
+            return (0, message_model_1.toMessageDetailsResponse)(restData, typeObj);
         });
     }
     static async create(data) {

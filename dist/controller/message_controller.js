@@ -20,6 +20,17 @@ class MessageCotroller {
             next(err);
         }
     }
+    static async getMessageDetailsByUuid(req, resp, next) {
+        try {
+            let uuid = zod_1.default.string().parse(req.params.uuid);
+            let result = await message_service_1.MessageService.getDetailsByUuid(uuid);
+            resp.status(200).json(result);
+            return;
+        }
+        catch (err) {
+            next(err);
+        }
+    }
     static async createMessage(req, resp, next) {
         try {
             let jsonBody = req.body;
@@ -36,6 +47,17 @@ class MessageCotroller {
         try {
             let limit = zod_1.default.coerce.number().default(100).parse(req.query.limit);
             let result = await message_service_1.MessageService.readAll({ limit: limit });
+            resp.status(200).json(result);
+            return;
+        }
+        catch (err) {
+            next(err);
+        }
+    }
+    static async readAllDetails(req, resp, next) {
+        try {
+            let limit = zod_1.default.coerce.number().default(100).parse(req.query.limit);
+            let result = await message_service_1.MessageService.readAllDetails({ limit: limit });
             resp.status(200).json(result);
             return;
         }

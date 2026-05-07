@@ -9,6 +9,7 @@ const content_validation_1 = require("../validation/content_validation");
 const content_service_1 = require("../service/content_service");
 const zod_1 = __importDefault(require("zod"));
 const auth_helper_1 = require("../helper/auth_helper");
+const comment_service_1 = require("../service/comment_service");
 class ContentController {
     static async createContent(req, resp, next) {
         try {
@@ -65,6 +66,17 @@ class ContentController {
         try {
             let limit = zod_1.default.coerce.number().default(100).parse(req.query.limit);
             let result = await content_service_1.ContentService.readAll({ limit: limit });
+            resp.status(200).json(result);
+            return;
+        }
+        catch (err) {
+            next(err);
+        }
+    }
+    static async readAllCommentDetailsByContent(req, resp, next) {
+        try {
+            let uuid = zod_1.default.string().parse(req.params.uuid);
+            let result = await comment_service_1.CommentService.readAllDetailsByContentUuid(uuid);
             resp.status(200).json(result);
             return;
         }

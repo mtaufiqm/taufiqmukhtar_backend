@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { MessageTypeController } from "../controller/messagetype_controller";
 import { MessageCotroller } from "../controller/message_controller";
 import { ContentController } from "../controller/content_controller";
@@ -8,15 +8,21 @@ import { ContentReactionController } from "../controller/contentreaction_control
 import { CommentController } from "../controller/comment_controller";
 export const publicRouter: express.Router = express.Router();
 
+publicRouter.get("/", (req: Request, resp: Response) => {
+    resp.status(200).json({
+        message: "Welcome to Muh. Taufiq Mukhtar Site API"
+    });
+    return;
+});
 publicRouter.post("/authenticate", AuthController.login);
 
 //MESSAGE TYPE
 publicRouter.get("/api/messagetype", MessageTypeController.readAll);
 
 //MESSAGE
-publicRouter.get("/api/message", MessageCotroller.readAll);
+publicRouter.get("/api/message", MessageCotroller.readAllDetails);
 publicRouter.post("/api/message", MessageCotroller.createMessage);
-publicRouter.get("/api/message/:uuid", MessageCotroller.getMessageByUuid);
+publicRouter.get("/api/message/:uuid", MessageCotroller.getMessageDetailsByUuid);
 
 //content
 publicRouter.get("/api/content", ContentController.readAll);

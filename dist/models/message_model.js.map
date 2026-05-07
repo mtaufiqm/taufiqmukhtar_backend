@@ -1,1 +1,1 @@
-{"version":3,"file":"message_model.js","sourceRoot":"","sources":["../../src/models/message_model.ts"],"names":[],"mappings":";;AAmBA,8CAEC;AAFD,SAAgB,iBAAiB,CAAC,IAAa;IAC3C,OAAO,IAAuB,CAAC;AACnC,CAAC"}
+{"version":3,"file":"message_model.js","sourceRoot":"","sources":["../../src/models/message_model.ts"],"names":[],"mappings":";;AAsBA,8CAEC;AAED,4DAIC;AA7BD,2DAAiF;AAqBjF,SAAgB,iBAAiB,CAAC,IAAa;IAC3C,OAAO,IAAuB,CAAC;AACnC,CAAC;AAED,SAAgB,wBAAwB,CAAC,IAAa,EAAE,IAAiB;IACrE,OAAO;QACH,GAAG,IAAI,EAAE,IAAI,EAAE,IAAA,yCAAqB,EAAC,IAAI,CAAC;KAC7C,CAAC;AACN,CAAC"}
