@@ -8,9 +8,8 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
+    "module": "nodenext",
     "target": "esnext",
-    "moduleResolution": "node10",
     "esModuleInterop": true,
     // For nodejs:
     // "lib": ["esnext"],

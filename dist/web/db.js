@@ -38,9 +38,10 @@ const pg_1 = require("pg");
 const env = __importStar(require("dotenv"));
 const adapter_pg_1 = require("@prisma/adapter-pg");
 const client_1 = require("../generated/prisma/client");
+const static_helper_1 = require("../helper/static_helper");
 env.configDotenv({ override: true });
 const pgPool = new pg_1.Pool({
-    connectionString: process.env.POSTGRESQL_URL
+    connectionString: static_helper_1.StaticHelper.isDev ? process.env.POSTGRESQL_URL_DEV : process.env.POSTGRESQL_URL_PROD
 });
 const prismaPgAdapter = new adapter_pg_1.PrismaPg(pgPool);
 exports.dbClient = new client_1.PrismaClient({ adapter: prismaPgAdapter });

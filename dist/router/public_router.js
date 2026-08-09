@@ -13,6 +13,12 @@ const reactiontype_controller_1 = require("../controller/reactiontype_controller
 const contentreaction_controller_1 = require("../controller/contentreaction_controller");
 const comment_controller_1 = require("../controller/comment_controller");
 exports.publicRouter = express_1.default.Router();
+exports.publicRouter.get("/", (req, resp) => {
+    resp.status(200).json({
+        message: "Welcome to Muh. Taufiq Mukhtar Site API"
+    });
+    return;
+});
 exports.publicRouter.post("/authenticate", auth_controller_1.AuthController.login);
 //MESSAGE TYPE
 exports.publicRouter.get("/api/messagetype", messagetype_controller_1.MessageTypeController.readAll);

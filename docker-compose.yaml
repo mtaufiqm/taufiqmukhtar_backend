@@ -1,5 +1,5 @@
 services:
-  masseddi-backend:
+  mtaufiqm-backend:
     build: .
     image: mtaufiqm-backend:1.0
     env_file: ".env"
