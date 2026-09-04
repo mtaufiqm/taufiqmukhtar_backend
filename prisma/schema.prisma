@@ -160,3 +160,25 @@ model Message {
   @@map("message") 
 }
 
+
+//sharelink app
+model ExpirePeriod {
+  id Int @id @default(autoincrement())
+  desc String
+  sharelinkObj ShareLink[]
+
+  @@map("expire_period")
+}
+
+model ShareLink {
+  uuid String @id @default(uuid())
+  key String
+  desc String
+  expire_period Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  creator_id String
+  expirePeriodObj ExpirePeriod @relation(fields: [expire_period], references: [id])
+
+  @@map("sharelink")
+}

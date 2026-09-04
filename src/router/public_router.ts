@@ -6,6 +6,8 @@ import { AuthController } from "../controller/auth_controller";
 import { ReactionTypeController } from "../controller/reactiontype_controller";
 import { ContentReactionController } from "../controller/contentreaction_controller";
 import { CommentController } from "../controller/comment_controller";
+import { ExpirePeriodController } from "../controller/share/expireperiod_controller";
+import { SharelinkController } from "../controller/share/sharelink_controller";
 export const publicRouter: express.Router = express.Router();
 
 publicRouter.get("/", (req: Request, resp: Response) => {
@@ -38,3 +40,8 @@ publicRouter.get("/api/reactiontype", ReactionTypeController.readAll);
 //CONTENT REACTION
 publicRouter.post("/api/contentreaction", ContentReactionController.createReaction);
 publicRouter.delete("/api/contentreaction/:uuid", ContentReactionController.deleteReaction);
+
+//SHARE LINK
+publicRouter.get("/api/sharelink/key/:key", SharelinkController.getByKey);
+publicRouter.get("/api/sharelink/expireperiod", ExpirePeriodController.readAll);
+publicRouter.post("/api/sharelink", SharelinkController.createData);
